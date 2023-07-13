@@ -4,6 +4,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { logout } from "./(auth)/logoutAction";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,9 +43,20 @@ export default async function RootLayout({
             </nav>
             <div className="text-white">
               {session.user ? (
-                <form action={logout}>
-                  <button type="submit">{session.user?.email}</button>
-                </form>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    {session.user?.email}
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <form action={logout}>
+                        <button type="submit">Logout</button>
+                      </form>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ) : (
                 <Link href="/login">Login</Link>
               )}
