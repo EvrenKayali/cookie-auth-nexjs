@@ -1,5 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { Authorize } from "../(auth)/AuthHOC";
+import { Authorize } from "../(auth)/Authorize";
 
 async function Secure() {
   const session = await getSession();
