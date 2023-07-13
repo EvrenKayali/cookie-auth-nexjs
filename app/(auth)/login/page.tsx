@@ -10,8 +10,6 @@ export default async function Login() {
     const password = data.get("password");
     const remember = data.get("remember");
 
-    await generateKeysIfNotExist();
-
     if (email === "test@test.com" && password === "123") {
       await signIn({ email, sub: "1" }, Boolean(remember));
     }

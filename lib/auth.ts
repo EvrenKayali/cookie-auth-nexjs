@@ -34,12 +34,11 @@ export async function generateKeysIfNotExist() {
 }
 
 export async function getKeyStore() {
-  if (fs.existsSync(keyFile)) {
-    const ks = fs.readFileSync(keyFile);
-    return await jose.JWK.asKeyStore(ks.toString());
-  }
-
-  return undefined;
+  const pem = Buffer.from(process.env.CERT!, "base64").toString("ascii");
+  const keyStore = jose.JWK.createKeyStore();
+  const key = await jose.JWK.asKey(pem!, "pem");
+  await keyStore.add(key);
+  return keyStore;
 }
 
 export async function generateJwt(user: User) {
