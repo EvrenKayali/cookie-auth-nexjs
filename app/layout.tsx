@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { logout } from "./(auth)/logoutAction";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-300`}>
-        <header className="bg-slate-500">
+        <header className="bg-slate-500 py-2">
           <div className="container flex justify-between mx-auto">
             <h1 className="text-white">
-              <Link href="/">Test</Link>
+              <Link href="/">Cookie Authantication</Link>
             </h1>
             <nav>
               <ul>
@@ -34,7 +35,9 @@ export default async function RootLayout({
             </nav>
             <div className="text-white">
               {session.user ? (
-                session.user?.email
+                <form action={logout}>
+                  <button type="submit">{session.user?.email}</button>
+                </form>
               ) : (
                 <Link href="/login">Login</Link>
               )}

@@ -4,7 +4,6 @@ import { addDays } from "date-fns";
 import { cookies } from "next/headers";
 import * as jwt from "jsonwebtoken";
 import { cache } from "react";
-import { redirect } from "next/navigation";
 
 export type User = {
   sub: string;

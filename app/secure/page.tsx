@@ -3,7 +3,6 @@ import { Authorize } from "../(auth)/AuthHOC";
 
 async function Secure() {
   const session = await getSession();
-  session.user;
   return (
     <section className="container mx-auto mt-4">
       <h1 className="text-xl font-bold">Secure Page</h1>
