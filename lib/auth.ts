@@ -60,7 +60,7 @@ export async function generateJwt(user: User) {
   return token;
 }
 
-export async function signIn(user: User) {
+export async function signIn(user: User, persistent?: boolean) {
   const token = await generateJwt(user);
 
   cookies().set("auth", String(token), {
@@ -69,6 +69,7 @@ export async function signIn(user: User) {
     secure: true,
     sameSite: "lax",
     priority: "high",
+    expires: persistent ? addDays(Date.now(), 15) : undefined,
   });
 }
 
