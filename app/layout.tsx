@@ -50,11 +50,16 @@ export default async function RootLayout({
                   <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <form action={logout}>
-                        <button type="submit">Logout</button>
-                      </form>
-                    </DropdownMenuItem>
+                    <form action={logout}>
+                      <DropdownMenuItem>
+                        <button
+                          type="submit"
+                          className="w-full flex justify-start"
+                        >
+                          Logout
+                        </button>
+                      </DropdownMenuItem>
+                    </form>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
