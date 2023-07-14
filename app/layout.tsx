@@ -41,7 +41,7 @@ export default async function RootLayout({
                 </li>
               </ul>
             </nav>
-            <div className="text-white">
+            <div className="text-white w-72 flex justify-end">
               {session.user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger>
