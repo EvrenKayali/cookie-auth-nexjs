@@ -6,13 +6,13 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-export const UsersTable = pgTable(
+export const users = pgTable(
   "users",
   {
     id: serial("id").primaryKey(),
-    name: text("name").notNull(),
+    name: text("name"),
     email: text("email").notNull(),
-    image: text("image").notNull(),
+    password: text("password"),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
   },
   (users) => {

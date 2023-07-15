@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"name" text NOT NULL,
+	"name" text,
 	"email" text NOT NULL,
-	"image" text NOT NULL,
+	"password" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint

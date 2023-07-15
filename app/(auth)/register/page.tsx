@@ -1,4 +1,26 @@
+import { db } from "@/data/drizzle";
+import { users } from "@/data/entities";
+import { getSession, signIn } from "@/lib/auth";
+import { register } from "@/lib/userManager";
+import { redirect } from "next/navigation";
+
 export default async function Register() {
+  async function registerUser(data: FormData) {
+    "use server";
+
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
+
+    const user = await register({ email: email, password: password });
+
+    await signIn({ email: user.email, sub: String(user.id) });
+
+    return { error: "email or password incorrect" };
+  }
+  const session = await getSession();
+  if (session.isAuthanticated) {
+    redirect("/");
+  }
   return (
     <div className="mt-4 p-4 flex justify-center items-center w-full">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -6,7 +28,7 @@ export default async function Register() {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Create an account
           </h1>
-          <form className="space-y-4 md:space-y-6" action="#">
+          <form className="space-y-4 md:space-y-6" action={registerUser}>
             <div>
               <label
                 htmlFor="email"
@@ -47,7 +69,7 @@ export default async function Register() {
                 Confirm password
               </label>
               <input
-                type="confirm-password"
+                type="password"
                 name="confirm-password"
                 id="confirm-password"
                 placeholder="••••••••"

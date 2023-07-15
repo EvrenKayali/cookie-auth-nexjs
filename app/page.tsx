@@ -1,8 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { UsersTable, db } from "@/data/drizzle";
-import Image from "next/image";
 import Link from "next/link";
-import Table from "@/components/Table";
 
 export default async function Home() {
   const session = await getSession();

@@ -1,20 +1,23 @@
 import { redirect } from "next/navigation";
 import { getSession, signIn } from "@/lib/auth";
 import Link from "next/link";
+import { findByUserNameAndPassword } from "@/lib/userManager";
 
 export default async function Login() {
   async function login(data: FormData) {
     "use server";
 
-    const email = data.get("email");
-    const password = data.get("password");
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
     const remember = data.get("remember");
 
-    if (email === "test@test.com" && password === "123") {
-      await signIn({ email, sub: "1" }, Boolean(remember));
+    const user = await findByUserNameAndPassword(email, password);
+
+    if (!user) {
+      return { error: "email or password incorrect" };
     }
 
-    return { error: "email or password incorrect" };
+    await signIn({ email, sub: "1" }, Boolean(remember));
   }
 
   const session = await getSession();
