@@ -28,7 +28,6 @@ export default async function Home() {
           </span>
         )}
       </p>
-      <Table />
     </section>
   );
 }
