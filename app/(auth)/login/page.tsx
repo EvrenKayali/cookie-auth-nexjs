@@ -39,6 +39,7 @@ export default async function Login() {
                 type="text"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
                 name="email"
+                autoComplete="on"
               />
             </div>
             <div>
@@ -48,6 +49,7 @@ export default async function Login() {
               <input
                 name="password"
                 type="password"
+                autoComplete="off"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
               />
             </div>
