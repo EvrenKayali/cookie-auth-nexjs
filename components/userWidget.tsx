@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/app/(auth)/logoutAction";
 import Link from "next/link";
+import { AppLink } from "./appLink";
+
 export default async function UserWidget() {
   const session = await getSession();
   return (
@@ -19,6 +21,11 @@ export default async function UserWidget() {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem asChild className="cursor-pointer">
+              <AppLink href="/me" className="w-full flex justify-start">
+                Profile
+              </AppLink>
+            </DropdownMenuItem>
             <form action={logout}>
               <DropdownMenuItem>
                 <button type="submit" className="w-full flex justify-start">
@@ -26,11 +33,6 @@ export default async function UserWidget() {
                 </button>
               </DropdownMenuItem>
             </form>
-            <DropdownMenuItem asChild className="cursor-pointer">
-              <Link href="/me" className="w-full flex justify-start">
-                Profile
-              </Link>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (

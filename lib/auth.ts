@@ -60,7 +60,7 @@ async function generateJwt(user: User, expirationInMinutes: number) {
 }
 
 export async function signIn(user: User, persistent?: boolean) {
-  const token = await generateJwt(user, persistent ? 15 * 24 * 60 : 1);
+  const token = await generateJwt(user, persistent ? 15 * 24 * 60 : 120);
 
   cookies().set("auth", String(token), {
     httpOnly: true,

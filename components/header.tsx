@@ -1,19 +1,20 @@
 import { getSession } from "@/lib/auth";
 import Link from "next/link";
 import UserWidget from "./userWidget";
+import { AppLink } from "./appLink";
 export default async function Header() {
   const session = await getSession();
   return (
     <header className="bg-primary py-2">
       <div className="container flex justify-between">
         <h1 className="text-primary-foreground">
-          <Link href="/">Cookie Authantication</Link>
+          <AppLink href="/">Cookie Authantication</AppLink>
         </h1>
         <nav>
           <ul>
             {session.isAuthanticated && (
               <li className="text-primary-foreground text-sm">
-                <Link href="/secure">Secure</Link>
+                <AppLink href="/secure">Secure</AppLink>
               </li>
             )}
           </ul>
