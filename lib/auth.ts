@@ -15,7 +15,7 @@ export type TokenPayload = {
   user?: User & { iat: number; exp: number };
 };
 
-export const keyFile = "keys.json";
+const keyFile = "keys.json";
 
 export async function generateKeys() {
   const keyStore = jose.JWK.createKeyStore();
@@ -41,7 +41,7 @@ export async function getKeyStore() {
   return keyStore;
 }
 
-export async function generateJwt(user: User) {
+async function generateJwt(user: User) {
   const keyStore = await getKeyStore();
   if (!keyStore) {
     return undefined;
@@ -72,6 +72,17 @@ export async function signIn(user: User, persistent?: boolean) {
   });
 }
 
+export async function signOut() {
+  const cookieStore = cookies();
+
+  cookieStore.set({
+    name: "auth",
+    value: "",
+    expires: addDays(new Date(), -1),
+    path: "/",
+  });
+}
+
 export const getSession = cache(async (): Promise<TokenPayload> => {
   const token = cookies().get("auth")?.value;
 
@@ -83,6 +94,7 @@ export const getSession = cache(async (): Promise<TokenPayload> => {
   if (!keyStore) {
     return { isAuthanticated: false };
   }
+
   const decoded = jwt.decode(token, { complete: true });
   const kid = decoded?.header.kid;
 

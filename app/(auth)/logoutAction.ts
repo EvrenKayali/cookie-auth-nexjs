@@ -1,14 +1,7 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { signOut } from "@/lib/auth";
 
 export async function logout() {
-  const cookieStore = cookies();
-
-  cookieStore.set({
-    name: "auth",
-    value: "",
-    expires: new Date("2016-10-05"),
-    path: "/",
-  });
+  signOut();
 }
