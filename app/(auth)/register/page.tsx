@@ -1,8 +1,9 @@
-import { db } from "@/data/drizzle";
-import { users } from "@/data/entities";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { getSession, signIn } from "@/lib/auth";
 import { register } from "@/lib/userManager";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import * as Mailjet from "node-mailjet";
 
 export default async function Register() {
   async function registerUser(data: FormData) {
@@ -12,6 +13,33 @@ export default async function Register() {
     const password = data.get("password") as string;
 
     const user = await register({ email: email, password: password });
+
+    // const client = Mailjet.Client.apiConnect(
+    //   process.env.MAILJET_API_KEY!,
+    //   process.env.MAILJET_API_SECRET!
+    // );
+
+    // const request = client.post("send", { version: "v3.1" }).request({
+    //   Messages: [
+    //     {
+    //       From: {
+    //         Email: "evrenkayali@hotmail.com",
+    //         Name: "Evren",
+    //       },
+    //       To: [
+    //         {
+    //           Email: "altintassemre@gmail.com",
+    //           Name: "Emre",
+    //         },
+    //       ],
+    //       Subject: "Greetings from Auth Cookies.",
+    //       TextPart: "Thanks for registration",
+    //       HTMLPart:
+    //         "<h3>Dear Emre, welcome to <a href='https://www.mailjet.com/'>Auth Cookies</a>!</h3><br />May the force be with you!",
+    //       CustomID: "AppGettingStartedTest",
+    //     },
+    //   ],
+    // });
 
     await signIn({ email: user.email, sub: String(user.id) });
 
@@ -102,20 +130,17 @@ export default async function Register() {
                 </label>
               </div>
             </div>
-            <button
-              type="submit"
-              className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            >
+            <SubmitButton type="submit" className="w-full ">
               Create an account
-            </button>
+            </SubmitButton>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Already have an account?{" "}
-              <a
-                href="#"
+              <Link
+                href="/login"
                 className="font-medium text-blue-600 hover:underline dark:text-blue-500"
               >
                 Login here
-              </a>
+              </Link>
             </p>
           </form>
         </div>

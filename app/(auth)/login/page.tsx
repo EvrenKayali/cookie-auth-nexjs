@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { getSession, signIn } from "@/lib/auth";
 import Link from "next/link";
 import { findByUserNameAndPassword } from "@/lib/userManager";
+import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 
 export default async function Login() {
   async function login(data: FormData) {
@@ -78,7 +80,10 @@ export default async function Login() {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="remember" className="text-blue-500">
+                  <label
+                    htmlFor="remember"
+                    className="text-blue-600 font-medium"
+                  >
                     Remember me
                   </label>
                 </div>
@@ -90,12 +95,9 @@ export default async function Login() {
                 Forgot password?
               </a>
             </div>
-            <button
-              type="submit"
-              className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            >
+            <SubmitButton type="submit" className="w-full">
               Sign in
-            </button>
+            </SubmitButton>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?{" "}
               <Link
@@ -109,52 +111,5 @@ export default async function Login() {
         </div>
       </div>
     </div>
-    // <div className="mt-4 p-4 flex justify-center items-center w-full">
-    //   <form action={login}>
-    //     <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-2xl max-w-sm">
-    //       <div className="space-y-4">
-    //         <h1 className="text-center text-2xl font-semibold text-gray-600">
-    //           Login
-    //         </h1>
-
-    //         <div>
-    //           <label className="block mb-1 text-gray-600 font-semibold">
-    //             Email
-    //           </label>
-    //           <input
-    //             type="text"
-    //             className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-    //             name="email"
-    //             autoComplete="on"
-    //           />
-    //         </div>
-    //         <div>
-    //           <label className="block mb-1 text-gray-600 font-semibold">
-    //             Password
-    //           </label>
-    //           <input
-    //             name="password"
-    //             type="password"
-    //             autoComplete="off"
-    //             className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-    //           />
-    //         </div>
-    //         <div>
-    //           <input
-    //             type="checkbox"
-    //             className="accent-indigo-600"
-    //             name="remember"
-    //           />
-    //           <span className="ml-2 font-bold text-indigo-500">
-    //             Remember me
-    //           </span>
-    //         </div>
-    //       </div>
-    //       <button className="mt-4 w-full bg-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">
-    //         Login
-    //       </button>
-    //     </div>
-    //   </form>
-    // </div>
   );
 }

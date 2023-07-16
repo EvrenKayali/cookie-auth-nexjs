@@ -28,21 +28,23 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-300`}>
-        <header className="bg-slate-500 py-2">
-          <div className="container flex justify-between mx-auto">
-            <h1 className="text-white">
+      <body className={`${inter.className} bg-slate-200`}>
+        <header className="bg-primary py-2">
+          <div className="container flex justify-between">
+            <h1 className="text-primary-foreground">
               <Link href="/">Cookie Authantication</Link>
             </h1>
             <nav>
               <ul>
-                <li className="text-white text-sm">
-                  <Link href="/secure">Secure</Link>
-                </li>
+                {session.isAuthanticated && (
+                  <li className="text-primary-foreground text-sm">
+                    <Link href="/secure">Secure</Link>
+                  </li>
+                )}
               </ul>
             </nav>
-            <div className="text-white w-72 flex justify-end">
-              {session.user ? (
+            <div className="text-primary-foreground w-72 flex justify-end">
+              {session.isAuthanticated ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     {session.user?.email}
