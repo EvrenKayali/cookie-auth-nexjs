@@ -11,10 +11,23 @@ export default async function Header() {
           <AppLink href="/">Cookie Authantication</AppLink>
         </h1>
         <nav>
-          <ul>
+          <ul className="flex space-x-2">
+            <li className="text-primary-foreground text-sm">
+              <Link
+                href="/about"
+                className="hover:underline hover:underline-offset-4"
+              >
+                About
+              </Link>
+            </li>
             {session.isAuthanticated && (
               <li className="text-primary-foreground text-sm">
-                <AppLink href="/secure">Secure</AppLink>
+                <AppLink
+                  href="/secure"
+                  className="hover:underline hover:underline-offset-4"
+                >
+                  Secure
+                </AppLink>
               </li>
             )}
           </ul>
