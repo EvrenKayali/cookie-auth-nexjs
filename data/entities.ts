@@ -12,7 +12,7 @@ export const users = pgTable(
     id: serial("id").primaryKey(),
     name: text("name"),
     email: text("email").notNull(),
-    password: text("password"),
+    password: text("password").notNull(),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
   },
   (users) => {

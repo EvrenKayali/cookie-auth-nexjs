@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { getSession, signIn } from "@/lib/auth";
 import Link from "next/link";
 import { findByUserNameAndPassword } from "@/lib/userManager";
-import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 
 export default async function Login() {
