@@ -5,7 +5,7 @@ export default async function Home() {
   const session = await getSession();
 
   return (
-    <section className="container mx-auto mt-4">
+    <section className="container mx-auto mt-4 bg-secondary shadow-xl p-4">
       <h1 className="text-xl font-bold">Home Page</h1>
       <p>
         <span>This is the home page.</span>{" "}
