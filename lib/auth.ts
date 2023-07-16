@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as jose from "node-jose";
-import { addDays } from "date-fns";
+import { addDays, addMinutes } from "date-fns";
 import { cookies } from "next/headers";
 import * as jwt from "jsonwebtoken";
 import { cache } from "react";
@@ -41,13 +41,13 @@ export async function getKeyStore() {
   return keyStore;
 }
 
-async function generateJwt(user: User) {
+async function generateJwt(user: User, expirationInMinutes: number) {
   const keyStore = await getKeyStore();
   if (!keyStore) {
     return undefined;
   }
   const [key] = keyStore.all({ use: "sig" });
-  const xp = addDays(Date.now(), 10).getTime();
+  const xp = addMinutes(Date.now(), expirationInMinutes).getTime();
   const opt = { compact: true, jwk: key, fields: { typ: "jwt" } };
   const payload = JSON.stringify({
     exp: Math.floor(xp / 1000),
@@ -60,7 +60,7 @@ async function generateJwt(user: User) {
 }
 
 export async function signIn(user: User, persistent?: boolean) {
-  const token = await generateJwt(user);
+  const token = await generateJwt(user, persistent ? 15 * 24 * 60 : 1);
 
   cookies().set("auth", String(token), {
     httpOnly: true,

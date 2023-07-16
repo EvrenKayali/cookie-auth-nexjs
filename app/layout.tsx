@@ -1,18 +1,7 @@
-import { getSession } from "@/lib/auth";
+import Header from "@/components/header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Link from "next/link";
-import { logout } from "./(auth)/logoutAction";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,56 +15,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
   return (
     <html lang="en">
       <body className={`${inter.className} bg-slate-200`}>
-        <header className="bg-primary py-2">
-          <div className="container flex justify-between">
-            <h1 className="text-primary-foreground">
-              <Link href="/">Cookie Authantication</Link>
-            </h1>
-            <nav>
-              <ul>
-                {session.isAuthanticated && (
-                  <li className="text-primary-foreground text-sm">
-                    <Link href="/secure">Secure</Link>
-                  </li>
-                )}
-              </ul>
-            </nav>
-            <div className="text-primary-foreground w-72 flex justify-end">
-              {session.isAuthanticated ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    {session.user?.email}
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <form action={logout}>
-                      <DropdownMenuItem>
-                        <button
-                          type="submit"
-                          className="w-full flex justify-start"
-                        >
-                          Logout
-                        </button>
-                      </DropdownMenuItem>
-                    </form>
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                      <Link href="/me" className="w-full flex justify-start">
-                        Profile
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Link href="/login">Login</Link>
-              )}
-            </div>
-          </div>
-        </header>
+        <Header />
         {children}
       </body>
     </html>
