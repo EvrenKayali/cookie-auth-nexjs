@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +63,11 @@ export default async function RootLayout({
                         </button>
                       </DropdownMenuItem>
                     </form>
+                    <DropdownMenuItem asChild className="cursor-pointer">
+                      <Link href="/me" className="w-full flex justify-start">
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
