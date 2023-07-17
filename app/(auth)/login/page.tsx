@@ -3,6 +3,7 @@ import { getSession, signIn } from "@/lib/auth";
 import Link from "next/link";
 import { findByUserNameAndPassword } from "@/lib/userManager";
 import { SubmitButton } from "@/components/ui/submit-button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Login() {
   async function login(data: FormData) {
